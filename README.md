@@ -1,4 +1,7 @@
 # Flask-Todo-App-API
+## Infomation
+- Simple Todo application API use Flask framework
+- Database: SQLite
 ## How to run?
 1. Open Terminal in this directory.
 2. Initialize the virtual environment by command: 

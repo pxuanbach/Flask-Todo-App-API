@@ -80,6 +80,7 @@ def update_todo(id: str, todo: str, status: str):
 
 def delete_todo(id: str): 
     try:
+        create_table()
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         c.execute('delete from todos where id=?', (id))

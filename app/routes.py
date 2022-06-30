@@ -16,7 +16,7 @@ def add_todo():
 
     res_data = helper.add_todo(todo)
     if res_data is None:
-        response = Response("{'error': 'Todo not added - '" + todo + "'}", status=400, mimetype='application/json')
+        response = Response("{'error': 'Todo not added - " + todo + "'}", status=400, mimetype='application/json')
         return response
     
     response = Response(json.dumps(res_data), mimetype='application/json')
@@ -40,14 +40,13 @@ def get_todo(todo_id):
     response = Response(json.dumps(res_data), mimetype='application/json')
     return response
 
-@app.route('/todo/update', methods=['PUT'])
-def update_todo():
+@app.route('/todo/<int:todo_id>', methods=['PUT'])
+def update_todo(todo_id):
     req_data = request.get_json()
-    todo_id = req_data['id']
     todo = req_data['todo']
     status = req_data['status']
 
-    res_data = helper.update_todo(todo_id, todo, status)
+    res_data = helper.update_todo(str(todo_id), todo, status)
     if res_data is None:
         response = Response("{'error': 'Can't update todo'}", status=400, mimetype='application/json')
         return response
@@ -55,11 +54,8 @@ def update_todo():
     response = Response(json.dumps(res_data), mimetype='application/json')
     return response
 
-@app.route('/todo/delete', methods=['DELETE'])
-def delete_todo():
-    req_data = request.get_json()
-    todo_id = req_data['id']
-
+@app.route('/todo/<int:todo_id>', methods=['DELETE'])
+def delete_todo(todo_id):
     res_data = helper.delete_todo(str(todo_id))
     if res_data is None:
         response = Response("{'error': 'Can't delete todo'}", status=400, mimetype='application/json')
